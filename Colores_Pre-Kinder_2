@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      max-width: 800px;
+      margin: 20px auto;
+      padding: 20px;
+      font-family: 'Montserrat', sans-serif;
+      background-color: #ffffff;
+      color: #333;
+    }
+
+    h1, h2 {
+      text-align: center;
+      color: #0066cc;
+    }
+
+    .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+      margin-top: 20px;
+    }
+
+    .column {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .color-word, .image-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 5px;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .image {
+      width: 100px;
+      height: 100px;
+      object-fit: cover;
+      border: 2px solid #ddd;
+      border-radius: 5px;
+    }
+
+    .color-word {
+      font-size: 14px;
+      font-weight: bold;
+      background-color: #e0f7fa;
+      padding: 5px;
+      border-radius: 5px;
+      text-align: center;
+      width: 100px;
+      height: 100px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+    }
+
+    .selected {
+      background-color: #b2ebf2;
+      border: 2px solid #00796b;
+    }
+
+    .incorrect {
+      background-color: #ffcdd2;
+      border: 2px solid #d32f2f;
+    }
+
+    canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+
+    @media (max-width: 600px) {
+      .color-word, .image-container {
+        margin: 10px 0;
+      }
+
+      .color-word {
+        width: 80px;
+        height: 80px;
+      }
+
+      .image {
+        width: 80px;
+        height: 80px;
+      }
+    }
+
+    .progress-container, .error-container {
+      width: 100%;
+      background-color: #e0e0e0;
+      border-radius: 5px;
+      margin: 10px 0;
+    }
+
+    .progress-bar, .error-bar {
+      height: 20px;
+      text-align: center;
+      line-height: 20px;
+      color: white;
+      border-radius: 5px;
+    }
+
+    .progress-bar {
+      background-color: #76c7c0;
+    }
+
+    .error-bar {
+      background-color: #f44336;
+    }
+  </style>
+  <title>Match the Colors</title>
+</head>
+<body>
+  <div style="display: flex; align-items: center;">
+    <img src="https://github.com/Mark2024Eze/Proyecto-para-ingles/blob/main/instituto%20overcome.jpg?raw=true" alt="Instituto Overcome" style="max-width: 100px; margin-right: 20px;">
+    <h1>Match the Colors with the Images</h1>
+  </div>
+  <div class="progress-container">
+    <div id="progressBar" class="progress-bar">0%</div>
+  </div>
+  <div class="progress-container">
+    <div id="correctBar" class="progress-bar">Correct: 0</div>
+  </div>
+  <div class="error-container">
+    <div id="errorBar" class="error-bar">Errors: 0</div>
+  </div>
+  
+  <div class="container">
+    <div class="column" id="color-words">
+      <div class="color-word" data-color="red">Red</div>
+      <div class="color-word" data-color="blue">Blue</div>
+      <div class="color-word" data-color="green">Green</div>
+      <div class="color-word" data-color="yellow">Yellow</div>
+      <div class="color-word" data-color="purple">Purple</div>
+      <div class="color-word" data-color="orange">Orange</div>
+      <div class="color-word" data-color="pink">Pink</div>
+      <div class="color-word" data-color="brown">Brown</div>
+      <div class="color-word" data-color="gray">Gray</div>
+      <div class="color-word" data-color="cyan">Cyan</div>
+    </div>
+    <canvas id="canvas"></canvas>
+    <div class="column" id="images">
+      <div class="image-container" data-color="red">
+        <img src="URL_DE_IMAGEN_ROJO" alt="Red Color" class="image">
+      </div>
+      <div class="image-container" data-color="blue">
+        <img src="URL_DE_IMAGEN_AZUL" alt="Blue Color" class="image">
+      </div>
+      <div class="image-container" data-color="green">
+        <img src="URL_DE_IMAGEN_VERDE" alt="Green Color" class="image">
+      </div>
+      <div class="image-container" data-color="yellow">
+        <img src="URL_DE_IMAGEN_AMARILLO" alt="Yellow Color" class="image">
+      </div>
+      <div class="image-container" data-color="purple">
+        <img src="URL_DE_IMAGEN_PURPURA" alt="Purple Color" class="image">
+      </div>
+      <div class="image-container" data-color="orange">
+        <img src="URL_DE_IMAGEN_NARANJA" alt="Orange Color" class="image">
+      </div>
+      <div class="image-container" data-color="pink">
+        <img src="URL_DE_IMAGEN_ROSA" alt="Pink Color" class="image">
+      </div>
+      <div class="image-container" data-color="brown">
+        <img src="URL_DE_IMAGEN_MARRON" alt="Brown Color" class="image">
+      </div>
+      <div class="image-container" data-color="gray">
+        <img src="URL_DE_IMAGEN_GRIS" alt="Gray Color" class="image">
+      </div>
+      <div class="image-container" data-color="cyan">
+        <img src="URL_DE_IMAGEN_CIAN" alt="Cyan Color" class="image">
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const colorWords = document.querySelectorAll('.color-word');
+    const imageContainers = document.querySelectorAll('.image-container');
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+    let selectedColor = null;
+    let correctAnswers = 0;
+    let errors = 0;
+
+    const correctMatches = {
+      red: 'URL_DE_IMAGEN_ROJO',
+      blue: 'URL_DE_IMAGEN_AZUL',
+      green: 'URL_DE_IMAGEN_VERDE',
+      yellow: 'URL_DE_IMAGEN_AMARILLO',
+      purple: 'URL_DE_IMAGEN_PURPURA',
+      orange: 'URL_DE_IMAGEN_NARANJA',
+      pink: 'URL_DE_IMAGEN_ROSA',
+      brown: 'URL_DE_IMAGEN_MARRON',
+      gray: 'URL_DE_IMAGEN_GRIS',
+      cyan: 'URL_DE_IMAGEN_CIAN'
+    };
+
+    const matchedImages = new Set();
+
+    canvas.width = document.querySelector('.container').offsetWidth;
+    canvas.height = document.querySelector('.container').offsetHeight;
+
+    function drawArrow(fromX, fromY, toX, toY) {
+      const headlen = 10; // length of head in pixels
+      const dx = toX - fromX;
+      const dy = toY - fromY;
+      const angle = Math.atan2(dy, dx);
+      ctx.moveTo(fromX, fromY);
+      ctx.lineTo(toX, toY);
+      ctx.lineTo(toX - headlen * Math.cos(angle - Math.PI / 6), toY - headlen * Math.sin(angle - Math.PI / 6));
+      ctx.moveTo(toX, toY);
+      ctx.lineTo(toX - headlen * Math.cos(angle + Math.PI / 6), toY - headlen * Math.sin(angle + Math.PI / 6));
+    }
+
+    function clearCanvas() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+    }
+
+    function updateProgressBar() {
+      const progressBar = document.getElementById('progressBar');
+      const totalColors = colorWords.length;
+      const progressPercentage = (correctAnswers / totalColors) * 100;
+      progressBar.style.width = progressPercentage + '%';
+      progressBar.textContent = Math.round(progressPercentage) + '%';
+    }
+
+    function updateCorrectCounter() {
+      const correctBar = document.getElementById('correctBar');
+      correctBar.textContent = 'Correct: ' + correctAnswers;
+    }
+
+    function updateErrorCounter() {
+      const errorBar = document.getElementById('errorBar');
+      errorBar.textContent = 'Errors: ' + errors;
+    }
+
+    colorWords.forEach(colorWord => {
+      colorWord.addEventListener('click', () => {
+        if (selectedColor) {
+          selectedColor.classList.remove('selected');
+        }
+        selectedColor = colorWord;
+        selectedColor.classList.add('selected');
+      });
+    });
+
+    imageContainers.forEach(imageContainer => {
+      imageContainer.addEventListener('click', () => {
+        if (!selectedColor) return;
+        if (matchedImages.has(imageContainer)) return;
+
+        const colorWord = selectedColor.dataset.color;
+        const imageColor = imageContainer.dataset.color;
+
+        if (colorWord === imageColor) {
+          correctAnswers++;
+          updateProgressBar();
+          updateCorrectCounter();
+          matchedImages.add(imageContainer);
+          clearCanvas();
+          const colorWordRect = selectedColor.getBoundingClientRect();
+          const imageRect = imageContainer.getBoundingClientRect();
+          const containerRect = document.querySelector('.container').getBoundingClientRect();
+          ctx.beginPath();
+          drawArrow(
+            colorWordRect.right - containerRect.left,
+            colorWordRect.top + colorWordRect.height / 2 - containerRect.top,
+            imageRect.left - containerRect.left,
+            imageRect.top + imageRect.height / 2 - containerRect.top
+          );
+          ctx.strokeStyle = '#4CAF50';
+          ctx.lineWidth = 2;
+          ctx.stroke();
+          selectedColor.classList.remove('selected');
+          selectedColor.classList.add('matched');
+          imageContainer.classList.add('matched');
+          selectedColor = null;
+        } else {
+          errors++;
+          updateErrorCounter();
+          selectedColor.classList.add('incorrect');
+          setTimeout(() => {
+            selectedColor.classList.remove('incorrect');
+          }, 500);
+        }
+      });
+    });
+  </script>
+</body>
+</html>
